@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head><title>TODO LIST APP</title>
+<style>
+.strikeThrough
+{
+  text-decoration: line-through;
+
+}
+.h1
+{
+    color: #00008B
+}
+.button{
+background-color: #008CBA;
+border: none;
+color: white;
+padding: 10px 24px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 10px;
+}
+
+ </style>
+  <script src="https://unpkg.com/vue"></script>
+</head>
+<body bgcolor="#E6E6FA">
+  <div id="app"  style="text-align:center">
+      <h1 class="h1">My Todo List App</h1>
+<h2 class="h1">Name Of Your Project {{message}}</h2>
+          <input type="text" v-model="message" placeholder="Name Of project"></br>
+
+          <form v-on:submit='addTask'></br>
+              <input type="text"v-model='tasks.task' placeholder="ADD NEW TASK">
+              <input type="submit" value='Add' class="button">
+          </form>
+          <table class="table"  align="center">
+            <thead>
+                <th class="h1">Done</th>
+              <th class="h1">  Task Names</th>
+              <th class="h1">Delete</th>
+            </thead>
+
+            <tbody>
+              <tr v-for='task in tasks'>
+                <td><input type="checkbox" v-model="task.completed"></td>
+                <td><span :class="{strikeThrough: task.completed}">{{ task.task }}</span></td>
+                <td><button v-on:click="tasks.splice(index, 1)" class="button">DELETE</button></td>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+  </div>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        tasks:[
+            {task:"Write Codes",completed:false},
+            {task:"Need to sleep",completed:false},
+            {task:"Need to eat",completed:false}
+        ],
+        message:""
+    },
+    methods: {
+            addTask: function(e) {
+              e.preventDefault();
+if (this.tasks.task !== '' && this.tasks.task !== undefined){
+              this.tasks.push({
+                task: this.tasks.task,
+                completed:false
+              });
+          }
+        }
+    }
+});
+  </script>
+</body>
+</html>
